@@ -1,0 +1,43 @@
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h1>Product edit form</h1>
+                <form action="/admin/edit-products/{{product._id}}" method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="">Name</label>
+                        <input type="text"name="name"class="form-control" value={{product.name}}>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Category</label>
+                        <input type="text" name="category" class="form-control" value={{product.category}}>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Price</label>
+                        <input type="text"name="price" class="form-control" value={{product.price}}>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Description</label>
+                        <input type="text"name="description" class="form-control" value={{product.description}}>
+                    </div>
+                    <div class="form-group">
+                        <label>Current image</label>
+                        <img style="width: 50px;height:50px;" src="/product-images/{{product._id}}.jpg" alt="" id="imgview">
+                    </div>
+                    <div class="form-group">
+                        <label for="">Image</label>
+                        
+                        <input type="file"name="image" class="form-control" onchange="viewimage(event)">
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    function viewimage(event){
+        document.getElementById('imgview').src=URL.createObjectURL(event.target.files[0])
+    }
+</script>

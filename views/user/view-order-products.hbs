@@ -1,0 +1,52 @@
+<section>
+    <div class="container mt-5">
+        <div class="row">
+            {{#each products}}
+                <div class="col-md-3 p-3">
+                    <div class="card" style="width: 15rem;height:24rem">
+                        <img class="card-img-top"
+                        src="/product-images/{{this.product._id}}.jpg"
+                        alt="card img cap"
+                        style="height: 12rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">{{this.product.name}}</h5>
+                        <p class="card-text">rs.{{this.product.price}}</p>
+                        <p class="card-text">quantity.{{this.quantity}}</p>
+                        <p class="card-text">{{this.description}}</p>
+                    </div>
+                    </div>
+                </div>
+            {{/each}}
+        </div>
+    </div>
+</section>
+
+<script>
+    function changeQuantity(cartID,proID,userID,count)
+    {
+        let quantity=parseInt(document.getElementById(proID).innerHTML)
+        count=parseInt(count)
+
+        $.ajax({
+            url:'/change-product-quantity',
+            data:{
+                user:userID,
+                cart:cartID,
+                product:proID,
+                count:count,
+                quantity:quantity
+            },
+            method:'post',
+            success:(response)=>{
+                if(response.removeProduct){
+                    alert("product removed from cart")
+                    location.reload()
+                }else{
+                    console.log(response)
+                    document.getElementById(proID).innerHTML=quantity+count
+                    document.getElementById('total').innerHTML=response.total
+                }
+            }
+        })
+    }
+</script>
